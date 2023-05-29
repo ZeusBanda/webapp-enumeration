@@ -34,4 +34,20 @@ ffuf -ic -w /usr/share/secLists/Discovery/Web-Content/directory-list-2.3-small.t
 ```
 
 ## Subdomain Enumeration
+```zsh
 ffuf -ic -w /usr/share/secLists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ -u http://FUZZ.<target.domain>/
+```
+
+## Parameter fuzzing
+```zsh
+ffuf -ic -w /usr/share/secLists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ -u http://<Target:PORT>/<directory>/<page>.php?FUZZ=<key>
+```
+or done with POST
+```zsh
+ffuf -ic -w /usr/share/secLists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ -u http://<Target:PORT>/<directory>/<page>.php -X POST -d 'FUZZ=<key>' -H 'Content-Type: application/x-www-form-urlencoded'
+```
+
+## Value Fuzzing
+```zsh
+ffuf -ic -w ids.txt:FUZZ -u http://<Target:PORT>/<directory>/<page>.php -X POST -d 'id=FUZZ' -H 'Content-Type: application/x-www-form-urlencoded'
+```
